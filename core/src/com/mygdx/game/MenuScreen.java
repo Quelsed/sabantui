@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MenuScreen implements Screen {
     Main main;
+    float timeToStart=0.5f;
 
     public MenuScreen(Main main) {
         this.main = main;
@@ -20,7 +21,11 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render (float delta) {
-        ScreenUtils.clear(1, 0, 0, 1);
+        timeToStart=timeToStart>-1?timeToStart-delta:-1;
+        if(Gdx.input.justTouched()&&timeToStart<0){
+            main.setScreen(new PulScreen(main));
+        }
+        ScreenUtils.clear(0, 1, 0, 1);
         main.batch.begin();
         main.batch.draw(img, 0, 0);
         main.batch.end();
