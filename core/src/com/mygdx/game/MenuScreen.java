@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MenuScreen implements Screen {
@@ -38,7 +39,7 @@ public class MenuScreen implements Screen {
         timeToStart = timeToStart > -1 ? timeToStart - delta : -1;
         if(Gdx.input.justTouched() &&ropeButton.contains(Gdx.input.getX(), HEIGHT-Gdx.input.getY())) {
             if ( timeToStart < 0) {
-                main.setScreen(new PulScreen(main));
+                main.setScreen(new TestScreen(main,new PulScreen(main)));
             }
         }
         ScreenUtils.clear(0, 1, 0, 1);
