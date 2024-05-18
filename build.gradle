@@ -1,5 +1,5 @@
 buildscript {
-    
+
 
     repositories {
         mavenLocal()
@@ -50,7 +50,7 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-        
+
     }
 }
 
@@ -82,7 +82,7 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
-        
+
     }
 }
 
@@ -91,11 +91,13 @@ project(":core") {
 
 
     dependencies {
+
+        implementation("com.squareup.okhttp3:okhttp:4.10.0")
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-        
+
     }
 }
