@@ -14,10 +14,9 @@ import java.awt.Rectangle;
 public class Main extends Game {
     SpriteBatch batch;
 
-
     @Override
     public void create() {
         batch = new SpriteBatch();
-        setScreen(new MenuScreen(this));
+        setScreen(new PotScreen(this));
     }
 }
