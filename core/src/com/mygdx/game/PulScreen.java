@@ -71,7 +71,7 @@ public class PulScreen implements Screen {
         }
         if (startTimer == -1 && !stop) {
 
-                rope.x += WIDTH / 75f*delta;
+                rope.x += WIDTH / 50f*delta;
 
             if (Gdx.input.justTouched()) rope.x -= WIDTH / 200f;
         }

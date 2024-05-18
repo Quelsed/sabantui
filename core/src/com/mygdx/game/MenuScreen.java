@@ -26,7 +26,7 @@ public class MenuScreen implements Screen {
     Texture rope = new Texture("rope.png");
     Texture fight = new Texture("field.JPG");
     Texture broke = new Texture("field.JPG");
-    Texture climber = new Texture("field.JPG");
+    Texture climber = new Texture("places/climberPlace.png");
 
 
     @Override
@@ -50,8 +50,8 @@ public class MenuScreen implements Screen {
         ScreenUtils.clear(0, 1, 0, 1);
         main.batch.begin();
         main.batch.draw(field, 0, 0,WIDTH,HEIGHT);
-        main.batch.draw(rope, ropeButton.x, ropeButton.y,ropeButton.width,ropeButton.height);
-        main.batch.draw(rope, climberButton.x, climberButton.y,climberButton.width,climberButton.height);
+        main.batch.draw(rope, ropeButton.x, ropeButton.y,ropeButton.width*1.5f,ropeButton.height*1.5f);
+        main.batch.draw(climber, climberButton.x, climberButton.y,climberButton.width,climberButton.height*1.5f);
         main.batch.end();
     }
 
