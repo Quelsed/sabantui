@@ -13,7 +13,7 @@ public class MenuScreen implements Screen {
     private int WIDTH = Gdx.graphics.getWidth();
     Main main;
     float timeToStart = 0.5f;
-    Rectangle ropeButton=new Rectangle(WIDTH/10f,5f*HEIGHT/9f,WIDTH/5f,HEIGHT/3f);
+    Rectangle ropeButton=new Rectangle(WIDTH/10f,5f*HEIGHT/9f,WIDTH/5f+200,HEIGHT/3f);
     Rectangle fightButton=new Rectangle();
     Rectangle brokeButton=new Rectangle(0,0,WIDTH/2f,HEIGHT/2f);
     Rectangle climberButton=new Rectangle(WIDTH/10f,HEIGHT/9f,WIDTH/5f,HEIGHT/3f);
@@ -23,10 +23,10 @@ public class MenuScreen implements Screen {
     }
 
     Texture field = new Texture("field.JPG");
-    Texture rope = new Texture("places/ropePlace.png");
+    Texture rope = new Texture("rope.png");
     Texture fight = new Texture("field.JPG");
     Texture broke = new Texture("field.JPG");
-    Texture climber = new Texture("field.JPG");
+    Texture climber = new Texture("places/climberPlace.png");
 
 
     @Override
@@ -50,8 +50,9 @@ public class MenuScreen implements Screen {
         ScreenUtils.clear(0, 1, 0, 1);
         main.batch.begin();
         main.batch.draw(field, 0, 0,WIDTH,HEIGHT);
-        main.batch.draw(rope, ropeButton.x, ropeButton.y,ropeButton.width,ropeButton.height);
-        main.batch.draw(rope, climberButton.x, climberButton.y,climberButton.width,climberButton.height);
+        main.batch.draw(rope, ropeButton.x, ropeButton.y,(ropeButton.width-200)*1.5f,ropeButton.height*1.5f);
+        main.batch.draw(climber, climberButton.x, climberButton.y,climberButton.width,climberButton.height*1.5f);
+
         main.batch.end();
     }
 

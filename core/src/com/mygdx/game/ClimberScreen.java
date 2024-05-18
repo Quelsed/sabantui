@@ -33,6 +33,12 @@ public class ClimberScreen implements Screen {
     Texture retry=new Texture("Buttons/Rectangle_grey.png");
     float timer=-1;
     BitmapFont font;
+    float gameTimer=10f;
+    int point=0;
+    Texture rectTimer=new Texture("Rectangle_timer.png");
+    Texture rectTimerGreen=new Texture("Rectangle_timer_green.png");
+    Rectangle rectangle_timer=new Rectangle(Gdx.graphics.getWidth()/4f,8*Gdx.graphics.getHeight()/9f,Gdx.graphics.getWidth()/2f,Gdx.graphics.getHeight()/9f);
+    Rectangle getRectangle_timer_green=new Rectangle(Gdx.graphics.getWidth()/4f*1.05f,8*Gdx.graphics.getHeight()/9f+Gdx.graphics.getHeight()/90f,Gdx.graphics.getWidth()/2f-Gdx.graphics.getWidth()/40f,Gdx.graphics.getHeight()/9f-Gdx.graphics.getHeight()/45f);
 
     @Override
     public void show() {
@@ -79,8 +85,13 @@ public class ClimberScreen implements Screen {
                 }
             }
         }
+        if(!getKicked)gameTimer-=delta;
         if(Gdx.input.justTouched()&&getKicked&&retryButton.contains(Gdx.input.getX(),Gdx.input.getY()))main.setScreen(new MenuScreen(main));
         if (Gdx.input.justTouched()&&!getKicked) {
+            point++;
+            gameTimer+=0.2f;
+            gameTimer=gameTimer>=10f?10f:gameTimer;
+            gameTimer=gameTimer<0?0:gameTimer;
             timer=0.1f;
             tap = firstTap ? tap - 1 : tap;
             firstTap = false;
@@ -139,7 +150,7 @@ public class ClimberScreen implements Screen {
             else
                 turn = true;
         }
-
+        if(gameTimer<=0)getKicked=true;
         if (!getKicked && !firstTap && turn && roots_list[tap].x == Gdx.graphics.getWidth() / 2 || !getKicked && !firstTap && !turn && roots_list[tap].x == Gdx.graphics.getWidth() / 2 - Gdx.graphics.getWidth() / 5 * 2) {
             getKicked=true;
             for (int i = 0; i < 3; i++) {
@@ -162,8 +173,14 @@ public class ClimberScreen implements Screen {
             main.batch.draw(retry, retryButton.x, retryButton.y, retryButton.width, retryButton.height);
             layout.setText(font,"Нажмите чтобы выйти в главное меню");
             font.draw(main.batch,"Нажмите чтобы выйти в главное меню", retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/4f+layout.height/2);
+            layout.setText(font,"Ваш результат: "+Integer.toString(point) );
+            font.draw(main.batch,"Ваш результат: "+Integer.toString(point),retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/2f+layout.height/2);
         }
+        main.batch.draw(rectTimer,rectangle_timer.x,rectangle_timer.y,rectangle_timer.width,rectangle_timer.height);
+        main.batch.draw(rectTimerGreen,getRectangle_timer_green.x,getRectangle_timer_green.y,gameTimer/10f*getRectangle_timer_green.width,getRectangle_timer_green.height);
 
+        layout.setText(font,Integer.toString((int)(point)));
+        font.draw(main.batch,Integer.toString((int)(point)),Gdx.graphics.getWidth() / 2f- layout.width/2,99*Gdx.graphics.getHeight()/100f-50);
         main.batch.end();
     }
 
