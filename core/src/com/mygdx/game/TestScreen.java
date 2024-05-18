@@ -58,11 +58,13 @@ public class TestScreen implements Screen {
     Texture secondButtonImg = new Texture("Buttons/Rectangle_grey.png");
     Texture thirdButtonImg = new Texture("Buttons/Rectangle_grey.png");
     Texture fourthButtonImg = new Texture("Buttons/Rectangle_grey.png");
+    Texture rightButton=new Texture("Buttons/Rectangle_green.png");
+    Texture wrongButton=new Texture("Buttons/Rectangle_red.png");
 
-    Rectangle firstButton = new Rectangle(0, 0, WIDTH / 2f, HEIGHT / 3f);
-    Rectangle secondButton = new Rectangle(WIDTH / 2f, 0, WIDTH / 2f, HEIGHT / 3f);
-    Rectangle thirdButton = new Rectangle(0, HEIGHT / 3f, WIDTH / 2f, HEIGHT / 3f);
-    Rectangle fourthButton = new Rectangle(WIDTH / 2f, HEIGHT / 3f, WIDTH / 2f, HEIGHT / 3f);
+    Rectangle firstButton = new Rectangle(0, 0, WIDTH / 2f-10, HEIGHT / 3f-10);
+    Rectangle secondButton = new Rectangle(WIDTH / 2f, 0, WIDTH / 2f-10, HEIGHT / 3f-10);
+    Rectangle thirdButton = new Rectangle(0, HEIGHT / 3f, WIDTH / 2f-10, HEIGHT / 3f-10);
+    Rectangle fourthButton = new Rectangle(WIDTH / 2f, HEIGHT / 3f, WIDTH / 2f-10, HEIGHT / 3f-10);
 
     Rectangle[] Buttons = new Rectangle[]{firstButton, secondButton, thirdButton, fourthButton};
     int[] puk;
@@ -70,6 +72,10 @@ public class TestScreen implements Screen {
     float fontHeight, fontWidth;
     int[] Randint = new int[]{-1, -1, -1, -1};
     String[] translate = new String[4];
+    int state=2;
+    float timerToStart=1;
+    int place=-1;
+    int placeWrong=-1;
 
     @Override
     public void show() {
@@ -80,6 +86,7 @@ public class TestScreen implements Screen {
         parameter.characters = "аәбвгдеёжҗзийклмнңоөпрстуүфхһцчшщъыьэюяАӘБВГДЕЁЖҖЗИЙКЛМНҢОӨПРСТУҮФХҺЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         parameter.size = 150;
         parameter.borderColor = Color.BLACK;
+        parameter.color=Color.BLACK;
         parameter.borderWidth = 3;
         font = generator.generateFont(parameter);
         generator.dispose();
@@ -108,7 +115,7 @@ public class TestScreen implements Screen {
             translate[i] = vocabulary[Randint[i]];
         }
         //
-        Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url("https://translate.tatar/translate?lang=0&text=дом").build();
+        Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url("https://translate.tatar/translate?lang=1&text=җиһаз").build();
         Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener(){
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -133,20 +140,37 @@ public class TestScreen implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(1, 1, 1, 1);
         main.batch.begin();
-        for (int i = 0; i < 4; i++) {
-            if (Gdx.input.justTouched() && Buttons[i].contains(Gdx.input.getX(), HEIGHT - Gdx.input.getY())) {
-                if (Randint[i] == rand) {
-                    main.setScreen(sc);
-                }
-            }
-        }
-
-
-
         main.batch.draw(firstButtonImg, firstButton.x, firstButton.y, firstButton.width, firstButton.height);
         main.batch.draw(secondButtonImg, secondButton.x, secondButton.y, secondButton.width, secondButton.height);
         main.batch.draw(thirdButtonImg, thirdButton.x, thirdButton.y, thirdButton.width, thirdButton.height);
         main.batch.draw(fourthButtonImg, fourthButton.x, fourthButton.y, fourthButton.width, fourthButton.height);
+        for (int i = 0; i < 4; i++) {
+            if (place==-1&&Randint[i] == rand ) {
+                place=i;
+            }
+            if (Gdx.input.justTouched() && Buttons[i].contains(Gdx.input.getX(), HEIGHT - Gdx.input.getY())&&state==2) {
+                if (Randint[i] == rand) {
+                    state =1;
+                }
+                else{
+                    state=0;
+                    placeWrong=i;
+                    timerToStart+=1;
+                }
+            }
+        }
+        if(state==1){
+            if(timerToStart<0)main.setScreen(sc);
+            timerToStart-=delta;
+            main.batch.draw(rightButton, Buttons[place].x, Buttons[place].y, Buttons[place].width, Buttons[place].height);
+        }
+        if(state==0){
+            if(timerToStart<0)main.setScreen(new MenuScreen(main));
+            timerToStart-=delta;
+            main.batch.draw(rightButton, Buttons[place].x, Buttons[place].y, Buttons[place].width, Buttons[place].height);
+            main.batch.draw(wrongButton, Buttons[placeWrong].x, Buttons[placeWrong].y, Buttons[placeWrong].width, Buttons[placeWrong].height);
+
+        }
 
         for (int i = 0; i < 4; i++) {
             layout.setText(font, vocabulary[Randint[i]]);
