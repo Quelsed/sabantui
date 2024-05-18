@@ -11,7 +11,6 @@ public class PulScreen implements Screen {
     private int HEIGHT = Gdx.graphics.getHeight();
     private int WIDTH = Gdx.graphics.getWidth();
 
-    float timer = 0;
     float startTimer = 3;
     float timeToEnd = 0.5f;
 
@@ -71,11 +70,9 @@ public class PulScreen implements Screen {
             main.batch.draw(loseWindow, WIDTH / 2f - WIDTH / 12f, 2 * HEIGHT / 3f - HEIGHT / 12f, WIDTH / 6f, HEIGHT / 6f);
         }
         if (startTimer == -1 && !stop) {
-            timer += delta;
-            if (timer >= 0.3f) {
-                timer = 0;
-                rope.x += WIDTH / 200f;
-            }
+
+                rope.x += WIDTH / 75f*delta;
+
             if (Gdx.input.justTouched()) rope.x -= WIDTH / 200f;
         }
         main.batch.end();

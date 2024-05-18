@@ -23,7 +23,7 @@ public class MenuScreen implements Screen {
     }
 
     Texture field = new Texture("field.JPG");
-    Texture rope = new Texture("places/ropePlace.png");
+    Texture rope = new Texture("rope.png");
     Texture fight = new Texture("field.JPG");
     Texture broke = new Texture("field.JPG");
     Texture climber = new Texture("field.JPG");
