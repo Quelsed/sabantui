@@ -10,12 +10,19 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class TestScreen implements Screen {
-    String query="https://translate.tatar";
+    String query="https://translate.tatar/translate?lang=1&text=";
     HttpsURLConnection connection=null;
     private final int HEIGHT = Gdx.graphics.getHeight();
     private final int WIDTH = Gdx.graphics.getWidth();
@@ -72,7 +79,6 @@ public class TestScreen implements Screen {
         puk=new int[]{rand,a,b,c};
         for(int i=0;i<4;i++){
             int k=(int)(Math.random()*4);
-            System.out.println(k+"k");
             while(true) {
                 if (Randint[k] == -1) {
                     Randint[k] = puk[i];
@@ -85,31 +91,11 @@ public class TestScreen implements Screen {
         for (int i = 0; i < 4; i++) {
             translate[i]=vocabulary[Randint[i]];
         }
-        for (int i = 0; i < 4; i++) {
-            try{
-                connection=(HttpsURLConnection) new URL(query).openConnection();
-
-                connection.setRequestMethod("GET/translate?lang=1&text="+translate[i]);
-                connection.setUseCaches(false);
-                connection.setConnectTimeout(250);
-                connection.setReadTimeout(250);
-
-                connection.connect();
-                if(connection.HTTP_OK==connection.getResponseCode()){
-
-                }
-
-            }catch (Throwable cause){
-                cause.printStackTrace();
-            }finally {
-                if(connection!=null){
-                    connection.disconnect();
-                }
-            }
-        }
-
 
     }
+
+
+
 
     @Override
     public void render(float delta) {

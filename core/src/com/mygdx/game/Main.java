@@ -14,6 +14,5 @@ public class Main extends Game {
     public void create() {
         batch = new SpriteBatch();
         setScreen(new MenuScreen(this));
-
     }
 }
