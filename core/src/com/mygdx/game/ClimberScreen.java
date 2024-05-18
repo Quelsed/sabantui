@@ -89,7 +89,7 @@ public class ClimberScreen implements Screen {
         if(Gdx.input.justTouched()&&getKicked&&retryButton.contains(Gdx.input.getX(),Gdx.input.getY()))main.setScreen(new MenuScreen(main));
         if (Gdx.input.justTouched()&&!getKicked) {
             point++;
-            gameTimer+=0.5f;
+            gameTimer+=0.2f;
             gameTimer=gameTimer>=10f?10f:gameTimer;
             gameTimer=gameTimer<0?0:gameTimer;
             timer=0.1f;
