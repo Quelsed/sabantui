@@ -76,18 +76,18 @@ public class PulScreen implements Screen {
         }
         if (stop) {
             main.batch.draw(retry, retryButton.x, retryButton.y, retryButton.width, retryButton.height);
-            layout.setText(font, "Нажмите чтобы выйти в главное меню");
-            font.draw(main.batch, "Нажмите чтобы выйти в главное меню", retryButton.x + retryButton.width / 2f - layout.width / 2f, retryButton.y + retryButton.height / 4f + layout.height / 2);
+            layout.setText(font, "Төп менюга чыгу өчен басыгыз");
+            font.draw(main.batch, "Төп менюга чыгу өчен басыгыз", retryButton.x + retryButton.width / 2f - layout.width / 2f, retryButton.y + retryButton.height / 4f + layout.height / 2);
             }
         if (rope.x < WIDTH / 8f) {
             stop = true;
-            layout.setText(font1, "Вы победили");
-            font1.draw(main.batch, "Вы победили", retryButton.x + retryButton.width / 2f - layout.width / 2f, retryButton.y + retryButton.height / 2f + layout.height / 2+50);
+            layout.setText(font1, "Сез җиңдегез");
+            font1.draw(main.batch, "Сез җиңдегез", retryButton.x + retryButton.width / 2f - layout.width / 2f, retryButton.y + retryButton.height / 2f + layout.height / 2+50);
         }
         if (rope.x + rope.width > 7 * WIDTH / 8f) {
             stop = true;
-            layout.setText(font1, "Вы проиграли");
-            font1.draw(main.batch, "Вы проиграли", retryButton.x + retryButton.width / 2f - layout.width / 2f, retryButton.y + retryButton.height / 2f + layout.height / 2+50);
+            layout.setText(font1, "Сез җиңелдегез");
+            font1.draw(main.batch, "Сез җиңелдегез", retryButton.x + retryButton.width / 2f - layout.width / 2f, retryButton.y + retryButton.height / 2f + layout.height / 2+50);
         }
         if(startTimer>0){
             if((int)(startTimer)>0) {

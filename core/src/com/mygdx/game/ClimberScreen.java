@@ -171,10 +171,10 @@ public class ClimberScreen implements Screen {
         }
         if(getKicked) {
             main.batch.draw(retry, retryButton.x, retryButton.y, retryButton.width, retryButton.height);
-            layout.setText(font,"Нажмите чтобы выйти в главное меню");
-            font.draw(main.batch,"Нажмите чтобы выйти в главное меню", retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/4f+layout.height/2);
-            layout.setText(font,"Ваш результат: "+Integer.toString(point) );
-            font.draw(main.batch,"Ваш результат: "+Integer.toString(point),retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/2f+layout.height/2);
+            layout.setText(font,"Төп менюга чыгу өчен басыгыз");
+            font.draw(main.batch,"Төп менюга чыгу өчен басыгыз", retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/4f+layout.height/2);
+            layout.setText(font,"Сезнең нәтиҗә: "+Integer.toString(point) );
+            font.draw(main.batch,"Сезнең нәтиҗә: "+Integer.toString(point),retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/2f+layout.height/2);
         }
         main.batch.draw(rectTimer,rectangle_timer.x,rectangle_timer.y,rectangle_timer.width,rectangle_timer.height);
         main.batch.draw(rectTimerGreen,getRectangle_timer_green.x,getRectangle_timer_green.y,gameTimer/10f*getRectangle_timer_green.width,getRectangle_timer_green.height);

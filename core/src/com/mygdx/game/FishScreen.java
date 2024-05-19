@@ -101,21 +101,21 @@ public class FishScreen implements Screen {
 
         if(gameTimer<=0) {
             main.batch.draw(retry, retryButton.x, retryButton.y, retryButton.width, retryButton.height);
-            layout.setText(font,"Нажмите чтобы выйти в главное меню");
-            font.draw(main.batch,"Нажмите чтобы выйти в главное меню", retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/4f+layout.height/2);
+            layout.setText(font,"Төп менюга чыгу өчен басыгыз");
+            font.draw(main.batch,"Төп менюга чыгу өчен басыгыз", retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/4f+layout.height/2);
             if(firstScore>secondScore){
-                layout.setText(font1,"Победил игрок 1");
-                font1.draw(main.batch,"Победил игрок 1",retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/2f+layout.height/2);
+                layout.setText(font1,"1 уенчы җиңде");
+                font1.draw(main.batch,"1 уенчы җиңде",retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/2f+layout.height/2);
             }
             if(secondScore>firstScore){
 
-                    layout.setText(font1,"Победил игрок 2");
-                    font1.draw(main.batch,"Победил игрок 2",retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/2f+layout.height/2);
+                    layout.setText(font1,"2 уенчы җиңде");
+                    font1.draw(main.batch,"2 уенчы җиңде",retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/2f+layout.height/2);
 
             }
             if(firstScore==secondScore){
-                layout.setText(font1,"Ничья");
-                font1.draw(main.batch,"Ничья",retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/2f+layout.height/2);
+                layout.setText(font1,"Беркем");
+                font1.draw(main.batch,"Беркем",retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/2f+layout.height/2);
             }
             }
         firstScore=firstScore<0?0:firstScore;
