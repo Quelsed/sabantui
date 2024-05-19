@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -22,6 +23,9 @@ public class PotScreen implements Screen {
     BitmapFont font1;
     GlyphLayout layout = new GlyphLayout();
     float freeze = 0.5f;
+    int svo=0;
+    boolean load=true;
+    Preferences prefs = Gdx.app.getPreferences("game preferences");
     Rectangle potik = new Rectangle(0, 0, Gdx.graphics.getWidth()/5f, Gdx.graphics.getWidth()/5f);
     boolean ris = true;
     float c1, c2;
@@ -89,6 +93,13 @@ public class PotScreen implements Screen {
         freeze=freeze<-c2?c1:freeze;
 
         if(gameTimer<=0) {
+            if(load){
+                svo += prefs.getInteger("highscore");
+                svo+=point;
+                prefs.putInteger("highscore", svo);
+                prefs.flush();
+                load=false;
+            }
             main.batch.draw(retry, retryButton.x, retryButton.y, retryButton.width, retryButton.height);
             layout.setText(font,"Төп менюга чыгу өчен басыгыз");
             font.draw(main.batch,"Төп менюга чыгу өчен басыгыз", retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/4f+layout.height/2);

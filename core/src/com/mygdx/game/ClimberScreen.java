@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class ClimberScreen implements Screen {
     Main main;
     int tap = 0;
+    Preferences prefs = Gdx.app.getPreferences("game preferences");
 
     public ClimberScreen(Main main) {
         this.main = main;
@@ -34,6 +36,8 @@ public class ClimberScreen implements Screen {
     float timer=-1;
     BitmapFont font;
     float gameTimer=10f;
+    int svo=0;
+    boolean load=true;
     int point=0;
     Texture rectTimer=new Texture("Rectangle_timer.png");
     Texture rectTimerGreen=new Texture("Rectangle_timer_green.png");
@@ -85,7 +89,7 @@ public class ClimberScreen implements Screen {
                 }
             }
         }
-        if(!getKicked)gameTimer-=delta;
+        if(!getKicked&&!firstTap)gameTimer-=delta;
         if(Gdx.input.justTouched()&&getKicked&&retryButton.contains(Gdx.input.getX(),Gdx.input.getY()))main.setScreen(new MenuScreen(main));
         if (Gdx.input.justTouched()&&!getKicked) {
             point++;
@@ -170,6 +174,14 @@ public class ClimberScreen implements Screen {
             main.batch.draw(lumber_r_image, Gdx.graphics.getWidth() / 2, 0, Gdx.graphics.getHeight() / 3, Gdx.graphics.getHeight() / 3);
         }
         if(getKicked) {
+            if(load) {
+                svo += prefs.getInteger("highscore");
+                svo+=point;
+                prefs.putInteger("highscore", svo);
+                prefs.flush();
+                load=false;
+            }
+
             main.batch.draw(retry, retryButton.x, retryButton.y, retryButton.width, retryButton.height);
             layout.setText(font,"Төп менюга чыгу өчен басыгыз");
             font.draw(main.batch,"Төп менюга чыгу өчен басыгыз", retryButton.x+retryButton.width/2f-layout.width/2f,retryButton.y+retryButton.height/4f+layout.height/2);

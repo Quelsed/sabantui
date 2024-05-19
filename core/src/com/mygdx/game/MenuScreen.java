@@ -1,12 +1,19 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MenuScreen implements Screen {
+    Preferences prefs = Gdx.app.getPreferences("game preferences");
+    private int highscore = prefs.getInteger("highscore");
     private int HEIGHT = Gdx.graphics.getHeight();
     private int WIDTH = Gdx.graphics.getWidth();
     Main main;
@@ -25,15 +32,31 @@ public class MenuScreen implements Screen {
     Texture fish = new Texture("places/fishPlace.png");
     Texture pot = new Texture("places/PotsGroup.png");
     Texture climber = new Texture("places/climberPlace.png");
+    GlyphLayout layout = new GlyphLayout();
+    BitmapFont font;
 
 
     @Override
     public void show() {
-
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Tantular/Tantular.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.characters = "аәбвгдеёжҗзийклмнңоөпрстуүфхһцчшщъыьэюяАӘБВГДЕЁЖҖЗИЙКЛМНҢОӨПРСТУҮФХҺЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        parameter.size = 150;
+        parameter.borderColor = Color.BLACK;
+        parameter.color = Color.WHITE;
+        parameter.borderWidth = 3;
+        font = generator.generateFont(parameter);
+        generator.dispose();
     }
 
     @Override
     public void render(float delta) {
+        highscore = prefs.getInteger("highscore");
+        if(highscore<0){
+            highscore=0;
+            prefs.putInteger("highscore",highscore);
+            prefs.flush();
+        }
         timeToStart = timeToStart > -1 ? timeToStart - delta : -1;
         if(Gdx.input.justTouched() &&ropeButton.contains(Gdx.input.getX(), HEIGHT-Gdx.input.getY())) {
             if ( timeToStart < 0) {
@@ -62,7 +85,8 @@ public class MenuScreen implements Screen {
         main.batch.draw(climber, climberButton.x, climberButton.y,climberButton.width,climberButton.height*1.5f);
         main.batch.draw(pot, potButton.x, potButton.y,potButton.width,potButton.height);
         main.batch.draw(fish, fishButton.x, fishButton.y,fishButton.width,fishButton.height);
-
+        layout.setText(font,Integer.toString(highscore));
+        font.draw(main.batch,Integer.toString(highscore),Gdx.graphics.getWidth()/2-layout.width/2,Gdx.graphics.getHeight()/2-layout.height/2+100);
         main.batch.end();
     }
 

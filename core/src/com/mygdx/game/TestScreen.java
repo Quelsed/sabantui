@@ -5,6 +5,7 @@ import static com.badlogic.gdx.net.HttpRequestBuilder.json;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -78,6 +79,9 @@ public class TestScreen implements Screen {
     String[] translate = new String[4];
     int state=2;
     float timerToStart=1;
+    Preferences prefs = Gdx.app.getPreferences("game preferences");
+    int svo=0;
+    boolean load=true;
     int place=-1;
     int placeWrong=-1;
 
@@ -148,6 +152,13 @@ public class TestScreen implements Screen {
             main.batch.draw(rightButton, Buttons[place].x, Buttons[place].y, Buttons[place].width, Buttons[place].height);
         }
         if(state==0){
+            if(load){
+                svo += prefs.getInteger("highscore");
+                svo-=10;
+                prefs.putInteger("highscore", svo);
+                prefs.flush();
+                load=false;
+            }
             if(timerToStart<0)main.setScreen(new MenuScreen(main));
             timerToStart-=delta;
             main.batch.draw(rightButton, Buttons[place].x, Buttons[place].y, Buttons[place].width, Buttons[place].height);
