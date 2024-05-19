@@ -22,6 +22,7 @@ public class FishScreen implements Screen {
     Texture normalFish = new Texture("fish.png");
     Texture diedFish = new Texture("fishDied.png");
     GlyphLayout layout = new GlyphLayout();
+    Texture lol=new Texture("places/fishPlace.png");
     Texture rectTimer=new Texture("Rectangle_timer.png");
     Texture rectTimerGreen=new Texture("Rectangle_timer_green.png");
     Rectangle fish = new Rectangle(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
@@ -69,6 +70,8 @@ public class FishScreen implements Screen {
         }
         ScreenUtils.clear(1, 1, 1, 1);
         main.batch.begin();
+        main.batch.draw(new Texture("potsfield.JPG"),0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        main.batch.draw(lol,Gdx.graphics.getWidth()/4f,-300,Gdx.graphics.getWidth()/2f,Gdx.graphics.getWidth()/2f);
         if (gameTimer>0&&leftTimer<0&&rightTimer<0&&Gdx.input.justTouched() ) {
             if (Gdx.input.getX() <= Gdx.graphics.getWidth() / 2) {
                 timer = 0;
