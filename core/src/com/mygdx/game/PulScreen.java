@@ -90,7 +90,7 @@ public class PulScreen implements Screen {
             font1.draw(main.batch, "Вы проиграли", retryButton.x + retryButton.width / 2f - layout.width / 2f, retryButton.y + retryButton.height / 2f + layout.height / 2+50);
         }
         if(startTimer>0){
-            if((int)(startTimer)>=0) {
+            if((int)(startTimer)>0) {
                 layout.setText(font1, Integer.toString((int) (startTimer)));
                 font1.draw(main.batch, Integer.toString((int) (startTimer)), Gdx.graphics.getWidth() / 2f - layout.width / 2, 2 * Gdx.graphics.getHeight() / 3f);
             }

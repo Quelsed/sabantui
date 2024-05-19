@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import static com.badlogic.gdx.Input.OnscreenKeyboardType.URI;
+import static com.badlogic.gdx.net.HttpRequestBuilder.json;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.net.HttpRequestBuilder;
 import com.badlogic.gdx.net.Socket;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +26,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -42,6 +45,7 @@ public class TestScreen implements Screen {
     Vocabulary v = new Vocabulary();
     BitmapFont font;
     private final String[] vocabulary = v.getArray();
+    private final String[] vocabularyRus = v.getRusArray();
     int rand = (int) (Math.random() * vocabulary.length);
     int a = (int) (Math.random() * vocabulary.length);
     int b = (int) (Math.random() * vocabulary.length);
@@ -86,7 +90,7 @@ public class TestScreen implements Screen {
         parameter.characters = "аәбвгдеёжҗзийклмнңоөпрстуүфхһцчшщъыьэюяАӘБВГДЕЁЖҖЗИЙКЛМНҢОӨПРСТУҮФХҺЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         parameter.size = 150;
         parameter.borderColor = Color.BLACK;
-        parameter.color=Color.BLACK;
+        parameter.color = Color.BLACK;
         parameter.borderWidth = 3;
         font = generator.generateFont(parameter);
         generator.dispose();
@@ -112,30 +116,9 @@ public class TestScreen implements Screen {
             }
         }
         for (int i = 0; i < 4; i++) {
-            translate[i] = vocabulary[Randint[i]];
+            translate[i] = vocabularyRus[Randint[i]];
         }
-        //
-        Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url("https://translate.tatar/translate?lang=1&text=җиһаз").build();
-        Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener(){
-            @Override
-            public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                System.out.println(httpResponse.getResultAsString());
-            }
-
-            @Override
-            public void failed(Throwable t) {
-                t.printStackTrace();
-            }
-
-            @Override
-            public void cancelled() {
-                System.out.println("cancelled");
-            }
-        });
-
     }
-
-
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1, 1, 1, 1);
@@ -173,10 +156,10 @@ public class TestScreen implements Screen {
         }
 
         for (int i = 0; i < 4; i++) {
-            layout.setText(font, vocabulary[Randint[i]]);
+            layout.setText(font, vocabularyRus[Randint[i]]);
             fontHeight = layout.height;
             fontWidth = layout.width;
-            font.draw(main.batch, vocabulary[Randint[i]], Buttons[i].x + Buttons[i].width / 2f - fontWidth / 2f, Buttons[i].y + Buttons[i].height / 2f + fontHeight / 2f);
+            font.draw(main.batch, vocabularyRus[Randint[i]], Buttons[i].x + Buttons[i].width / 2f - fontWidth / 2f, Buttons[i].y + Buttons[i].height / 2f + fontHeight / 2f);
         }
         layout.setText(font, vocabulary[rand]);
         fontHeight = layout.height;
