@@ -69,7 +69,7 @@ public class FishScreen implements Screen {
         }
         ScreenUtils.clear(1, 1, 1, 1);
         main.batch.begin();
-        if (gameTimer>0&&leftTimer<0&&rightTimer<0&&Gdx.input.justTouched() && fish.contains(Gdx.input.getX(), Gdx.input.getY())) {
+        if (gameTimer>0&&leftTimer<0&&rightTimer<0&&Gdx.input.justTouched() ) {
             if (Gdx.input.getX() <= Gdx.graphics.getWidth() / 2) {
                 timer = 0;
                 firstScore += stage != 0 ? 1 : -1;
